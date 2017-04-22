@@ -17,7 +17,7 @@
 </header>
 
 <section class="top">
-    <h1>Programme Célébration du {{ plan.dates }}</h1>
+    <h1>Programme Célébration du {{ plan.dates | date: '%J %m %Y' | downcase }}</h1>
     <h3>L’ordre des interventions peut être modifié en cours de célébration.</h3>
 </section>
 
