@@ -50,10 +50,12 @@ table.main {
 
     th, td {
         border: 1px solid $blackGC;
+        padding: 2px 1px;
     }
 
     tr.header td {
-        background-color: $grayGC;
+        color: $grayGC;
+        border: none;
     }
 
     tr.song {
