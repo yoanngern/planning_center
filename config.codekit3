@@ -21,6 +21,12 @@
 		"oAP": "\/.idea\/.name",
 		"oF": 0
 		},
+	"\/.idea\/deployment.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/deployment.xml",
+		"oF": 0
+		},
 	"\/.idea\/encodings.xml": {
 		"ft": 8192,
 		"oA": 2,
@@ -49,6 +55,12 @@
 		"ft": 8192,
 		"oA": 2,
 		"oAP": "\/.idea\/vcs.xml",
+		"oF": 0
+		},
+	"\/.idea\/webServers.xml": {
+		"ft": 8192,
+		"oA": 2,
+		"oAP": "\/.idea\/webServers.xml",
 		"oF": 0
 		},
 	"\/.idea\/workspace.xml": {
@@ -228,16 +240,6 @@
 		"oF": 2,
 		"oS": 3,
 		"uL": 1
-		},
-	"\/gcl_simple\/style.css": {
-		"aP": 1,
-		"bl": 0,
-		"ft": 16,
-		"ma": 0,
-		"oA": 0,
-		"oAP": "\/gcl_simple\/style-min.css",
-		"oF": 0,
-		"oS": 0
 		},
 	"\/gcl_simple\/template.html": {
 		"ft": 8192,
