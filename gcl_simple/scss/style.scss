@@ -20,7 +20,7 @@ body {
 
 header {
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px auto;
 
     img {
         height: 80px;
@@ -71,7 +71,7 @@ table.main {
     }
 
     tr.song {
-        color: $greenGC;
+        color: $blue;
     }
 
 }

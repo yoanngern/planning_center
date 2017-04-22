@@ -60,7 +60,7 @@ body {
 
 header {
   width: 100%;
-  margin-bottom: 20px; }
+  margin: 20px auto; }
   header img {
     height: 80px; }
 
@@ -90,7 +90,7 @@ table.main {
     color: #878787;
     border: none; }
   table.main tr.song {
-    color: #89CEB7; }
+    color: #0F66AA; }
 
 table.people {
   margin-top: 30px; }
