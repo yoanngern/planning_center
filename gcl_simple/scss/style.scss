@@ -8,6 +8,10 @@
     margin: 0.4in;
 }
 
+body {
+    font-size: 14px;
+}
+
 * {
     font-family: $font-regular;
     padding: 0;
@@ -66,4 +70,17 @@ table.main {
         color: blue;
     }
 
+}
+
+table.people {
+
+
+
+    th, td {
+        padding: 2px 3px;
+
+        &:first-of-type {
+            font-family: $font-bold;
+        }
+    }
 }

@@ -50,6 +50,9 @@ article, aside, footer, header, hgroup, nav, section, figure, figcaption {
   size: A4 Portrait;
   margin: 0.4in; }
 
+body {
+  font-size: 14px; }
+
 * {
   font-family: "Radikal", sans-serif;
   padding: 0;
@@ -85,3 +88,8 @@ table.main {
     border: none; }
   table.main tr.song {
     color: blue; }
+
+table.people th, table.people td {
+  padding: 2px 3px; }
+  table.people th:first-of-type, table.people td:first-of-type {
+    font-family: "Radikal-Bold", "Radikal", sans-serif; }

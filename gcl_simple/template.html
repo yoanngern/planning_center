@@ -17,7 +17,7 @@
 </header>
 
 <section class="top">
-    <h1>Programme Célébration du {{ plan.dates | date: '%J %m %Y' | downcase }}</h1>
+    <h1>Programme Célébration du {{ plan.dates | date: '%d.%m.%Y' | downcase }}</h1>
     <h3>L’ordre des interventions peut être modifié en cours de célébration.</h3>
 </section>
 
@@ -27,7 +27,6 @@
         <th>Horaires</th>
         <th>Durée</th>
         <th>Events</th>
-        <th>Description</th>
         <th>Média</th>
     </tr>
     </thead>
@@ -37,20 +36,96 @@
     {% case item.item_type %}
     {% when 'Header' %}
     <tr class="header">
-        <td colspan="5">{{ item.title }}</td>
+        <td colspan="4">{{ item.title }}</td>
     </tr>
     {% else %}
     <tr class="{{item.item_type}}">
-        <td class="time">{% for item_time in item.times %}{{item_time.actual_time | date: '%H:%M' | downcase}}{% endfor %}</td>
+        <td class="time">{% for item_time in item.times %}{{item_time.actual_time | date: '%H:%M' | downcase}}{% endfor
+            %}
+        </td>
         <td class="length">{% if item.length != "0:00" %}{{ item.length }}{% endif %}</td>
-        <td class="title">{{ item.title }}</td>
-        <td class="desc">{{ item.description }}</td>
-        <td></td>
+        <td class="title">{{ item.title }} <span>{{ item.description }}</span></td>
+        <td class="media">{% for note in item.notes %}{% if note.category_name == "Audio/Visual" %}{{ note.note }}{%
+            endif %}{% endfor %}
+        </td>
+
 
     </tr>
     {% endcase %}
     {% endfor %}
     </tr>
+    </tbody>
+</table>
+
+<table class="people">
+
+    <tbody>
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Président") && (plan_person.category.name == "On stage") %}
+    <tr>
+        <td>Président</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Worship Leader") && (plan_person.category.name == "Worship band") %}
+    <tr>
+        <td>Worship Leader</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Sound") && (plan_person.category.name == "Production") %}
+    <tr>
+        <td>Sono</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Projection") && (plan_person.category.name == "Production") %}
+    <tr>
+        <td>Projection</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Resp") && (plan_person.category.name == "Welcome Team") %}
+    <tr>
+        <td>Accueil</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
+
+    {% for plan_person in plan.plan_people_not_declined %}
+
+    {% if (plan_person.position == "Resp") && (plan_person.category.name == "Logistique") %}
+    <tr>
+        <td>Logistique</td>
+        <td>{{ plan_person.person.name}}</td>
+    </tr>
+    {% endif %}
+
+    {% endfor %}
     </tbody>
 </table>
 
