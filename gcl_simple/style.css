@@ -75,14 +75,14 @@ section.top {
     color: #D91A15; }
 
 table {
-  font-size: 14px; }
+  font-size: 12px; }
 
 table.main {
   width: 100%; }
   table.main thead th {
     font-family: "Radikal-Bold", "Radikal", sans-serif; }
   table.main th, table.main td {
-    border: 1px solid #313131;
+    border: 1px solid #363331;
     padding: 5px 3px; }
     table.main th.time, table.main td.time {
       text-align: center; }
@@ -92,7 +92,9 @@ table.main {
   table.main tr.song {
     color: blue; }
 
-table.people th, table.people td {
-  padding: 2px 3px; }
-  table.people th:first-of-type, table.people td:first-of-type {
-    font-family: "Radikal-Bold", "Radikal", sans-serif; }
+table.people {
+  margin-top: 30px; }
+  table.people th, table.people td {
+    padding: 2px 3px; }
+    table.people th:first-of-type, table.people td:first-of-type {
+      font-family: "Radikal-Bold", "Radikal", sans-serif; }
