@@ -1,0 +1,36 @@
+@import "functions";
+@import "color";
+@import "font";
+@import "reset";
+
+@page {
+    size: A4 Portrait;
+    margin: 0.4in;
+}
+
+* {
+    font-family: $font-regular;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    margin-bottom: 20px;
+
+   img {
+        height: 80px;
+    }
+}
+
+section.top {
+    h1 {
+        font-family: $font-bold;
+
+    }
+
+    h3 {
+        color: $redGC;
+
+    }
+}

@@ -1,0 +1,135 @@
+<html>
+<head>
+    <title>{{ plan.ministry.name }}:: {{ plan.dates }}</title>
+
+    <link rel="stylesheet" href="https://pc.ministries.io/gcl_simple/style.css" type="text/css"/>
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://pc.ministries.io/gcl_simple/images/logoGCL.png" alt="Gospel Center Lausanne">
+</header>
+
+<section class="top">
+    <h1>Programme Célébration du {{ plan.dates }}</h1>
+    <h3>L’ordre des interventions peut être modifié en cours de célébration.</h3>
+</section>
+
+<table id="header" width="100%">
+    <tr>
+        <td rowspan=2 width="70pt" style="background-color: black; color:white; font-weight: bold; text-align: center;">
+            SERVICE ORDER
+        </td>
+        <td colspan=2
+            style="background-color: black; color:white; font-size: 25pt; font-weight: bold; text-align: center; padding: 3px;">
+            {{ plan.plan_title }}
+        </td>
+        <td rowspan=2 width="70pt" style="background-color: black; color:white; font-weight: bold; text-align: center;">
+            SERVICE ORDER
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center; font-size: 12pt;">{{ plan.series_title }}</td>
+        <td style="text-align: center; font-size: 12pt;">{{ plan.dates }}</td>
+    </tr>
+</table>
+<div style="background-color: black; height: 6pt; margin: 5pt 0;"></div>
+<table width="100%;">
+    <tr>
+        <td style="width: 150pt; border: solid 1px black; vertical-align: top; font-size: 8pt; padding: 5px; padding-top: 0px;">
+            {% for plan_person in plan.plan_people_not_declined %}
+            {% if last_category != plan_person.category.id%}
+            <div style="clear: both; border-bottom: solid 1px lightgrey; margin-top: 5px; font-weight: bold; font-size: 12pt;">
+                {{ plan_person.category.name }}
+            </div>
+            {% endif %}
+            {% assign last_category = plan_person.category.id %}
+            <div><strong>{{ plan_person.position }}: </strong>{{ plan_person.person.name }}
+                {% if plan_person.status == 'U' %} <img
+                        src="https://www.planningcenteronline.com/assets/icon_plan_person_u.gif"/>{% endif %}
+            </div>
+            {% endfor %}
+        </td>
+
+        <td valign="top">
+            <table id="plan">
+                <thead>
+                <tr>
+                    <th>TIME</th>
+                    <th>{{ plan.plan_title }}</th>
+                    <th align="right">LENGTH</th>
+                </tr>
+                </thead>
+                {% for item in plan.items %}
+                {% case item.item_type %}
+                {% when 'Header' %}
+                {% else %}
+                <tr>
+                    <td class="item">{{ item.offset }}</td>
+                    <td class="item"><strong>{{ item.title }}:</strong> {{ item.description }}</td>
+                    <td class="item" align="right">{% if item.length != "0:00" %}{{ item.length }}{% endif %}</td>
+                </tr>
+                {% endcase %}
+                {% endfor %}
+            </table>
+            <table class="times">
+                <thead>
+                <tr>
+                    <th colspan=4>SATURDAY REHEARSAL</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% assign even = 0 %}
+                <tr>
+                    {% for time in plan.rehearsal_times %}
+                    {{ time.starts_at | date: '%A' | assign_to: 'day_of_week' }}
+                    {% if day_of_week == 'Saturday' %}
+                    <th>{{ time.starts_at | date: '%I:%M' }}</th>
+                    <td>{{ time.name }}</td>
+                    {% if even == 1 %}
+                </tr>
+                <tr>
+                    {% assign even = 0 %}
+                    {% else %}
+                    {% assign even = 1 %}
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+            <table class="times">
+                <thead>
+                <tr>
+                    <th colspan=4>SUNDAY REHEARSAL</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% assign even = 0 %}
+                <tr>
+                    {% for time in plan.rehearsal_times %}
+                    {{ time.starts_at | date: '%A' | assign_to: 'day_of_week' }}
+                    {% if day_of_week == 'Sunday' %}
+                    <th>{{ time.starts_at | date: '%I:%M' }}</th>
+                    <td>{{ time.name }}</td>
+                    {% if even == 1 %}
+                </tr>
+                <tr>
+                    {% assign even = 0 %}
+                    {% else %}
+                    {% assign even = 1 %}
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
