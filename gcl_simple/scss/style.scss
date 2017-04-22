@@ -58,7 +58,7 @@ table.main {
 
     th, td {
         border: 1px solid $grayDarkGC;
-        padding: 5px 3px;
+        padding: 5px;
 
         &.time {
             text-align: center;
@@ -71,7 +71,7 @@ table.main {
     }
 
     tr.song {
-        color: blue;
+        color: $greenGC;
     }
 
 }

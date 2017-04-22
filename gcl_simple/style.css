@@ -83,14 +83,14 @@ table.main {
     font-family: "Radikal-Bold", "Radikal", sans-serif; }
   table.main th, table.main td {
     border: 1px solid #363331;
-    padding: 5px 3px; }
+    padding: 5px; }
     table.main th.time, table.main td.time {
       text-align: center; }
   table.main tr.header td {
     color: #878787;
     border: none; }
   table.main tr.song {
-    color: blue; }
+    color: #89CEB7; }
 
 table.people {
   margin-top: 30px; }
