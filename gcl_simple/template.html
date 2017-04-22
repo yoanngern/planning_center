@@ -4,6 +4,8 @@
 
     <link rel="stylesheet" href="https://pc.ministries.io/gcl_simple/style.css" type="text/css"/>
 
+    <!--<link rel="stylesheet" href="style.css" type="text/css"/>-->
+
     <style>
 
     </style>
@@ -19,117 +21,161 @@
     <h3>L’ordre des interventions peut être modifié en cours de célébration.</h3>
 </section>
 
-<table id="header" width="100%">
+
+
+<!-- PLAN TABLE -->
+{% if print_plan_items == true %}
+<table id="plan" class="main">
+    {% if print_plan_item_times == true or print_plan_item_length == true or notes_in_columns == true %}
+    <thead>
     <tr>
-        <td rowspan=2 width="70pt" style="background-color: black; color:white; font-weight: bold; text-align: center;">
-            SERVICE ORDER
-        </td>
-        <td colspan=2
-            style="background-color: black; color:white; font-size: 25pt; font-weight: bold; text-align: center; padding: 3px;">
-            {{ plan.plan_title }}
-        </td>
-        <td rowspan=2 width="70pt" style="background-color: black; color:white; font-weight: bold; text-align: center;">
-            SERVICE ORDER
-        </td>
+        {% if print_plan_item_times == true %}
+        {% for time in plan.plan_times %}
+        <th class="time">{{ time.starts_at | date: '%m/%d<br/>%I:%M%p' | downcase }}</th>
+        {% endfor %}
+        {% endif %}
+
+        {% if print_plan_item_length == true %}
+        <th class="length">Length<br/>in mins</th>
+        {% endif %}
+
+        <th></th>
+
+        {% if notes_in_columns == true %}
+        {% for selected_item_note in selected_item_notes %}
+        <th class="notes">
+            {% if all_item_notes == true %}
+            {{ selected_item_note.name }}
+            {% else %}
+            {{ selected_item_note }}
+            {% endif %}
+        </th>
+        {% endfor %}
+        {% else %}
+        <th class="notes">Notes</th>
+        {% endif %}
     </tr>
-    <tr>
-        <td style="text-align: center; font-size: 12pt;">{{ plan.series_title }}</td>
-        <td style="text-align: center; font-size: 12pt;">{{ plan.dates }}</td>
-    </tr>
-</table>
-<div style="background-color: black; height: 6pt; margin: 5pt 0;"></div>
-<table width="100%;">
-    <tr>
-        <td style="width: 150pt; border: solid 1px black; vertical-align: top; font-size: 8pt; padding: 5px; padding-top: 0px;">
-            {% for plan_person in plan.plan_people_not_declined %}
-            {% if last_category != plan_person.category.id%}
-            <div style="clear: both; border-bottom: solid 1px lightgrey; margin-top: 5px; font-weight: bold; font-size: 12pt;">
-                {{ plan_person.category.name }}
+    </thead>
+    {% endif %}
+    <tbody>
+    {% for item in plan.items %}
+    {% case item.item_type %}
+    {% when 'Header' %}
+    <tr style="page-break-after: avoid">
+        <td colspan="{% if print_plan_item_times == true and print_plan_item_length == true %}{{ plan.plan_times | size | add: 2 }}{% endif %}
+												{% if print_plan_item_times == true and print_plan_item_length != true %}{{ plan.plan_times | size | add: 1 }}{% endif %}
+												{% if print_plan_item_times != true and print_plan_item_length == true %}2{% endif %}
+												{% if print_plan_item_times != true and print_plan_item_length != true %}1{% endif %}"
+            class="header">
+            {{ item.title }}
+        </td>
+        {% if notes_in_columns == true %}
+        {% for selected_item_note in selected_item_notes %}
+        <td class="header"></td>
+        {% endfor %}
+        {% else %}
+        <td class="header"></td>
+        {% endif %}
+        {% else %}
+    <tr class="item {% cycle 'odd', 'even'%}">
+        {% if print_plan_item_times == true %}
+        {% for time in plan.plan_times %}
+        <td class="time item">
+            {% for item_time in item.times %}{% if item_time.time_id == time.id %}{{ item_time.actual_time | date:
+            '%I:%M%p' | downcase }} {% endif %}{% endfor %}
+        </td>
+        {% endfor %}
+        {% endif %}
+
+        {% if print_plan_item_length == true %}
+        <td class="length item">{{ item.length }}</td>
+        {% endif %}
+
+        <td class="item {% if item.song %}song{% endif %}">
+            <span class="item_title">{{ item.title }}</span>
+            {% if item.arrangement %}
+
+            {% if print_arrangement_name == true %}
+            <span class="arrangement">{{ item.arrangement.name }}</span>
+            {% endif %}
+
+            {% if item.arrangement.music_key != "" and print_song_key == true %}
+            <span class="key">in [{{ item.arrangement.music_key }}]</span>
+            {% endif %}
+
+            {% if item.arrangement.bpm != "" and print_song_bpm == true %}
+            <span class="bpm">at {{ item.arrangement.bpm }} bpm</span>
+            {% endif %}
+
+            {% if item.item_sequence and print_song_sequence == true %}
+            <span class="sequence"> - {{ item.item_sequence }}</span>
+            {% endif %}
+
+            {% endif %}
+            <pre class="description">{{ item.description }}</pre>
+            {% if print_lyrics and item.arrangement.lyrics %}
+            <div class="lyrics">
+                <div class="song_header">
+                    <div class="credits">{% if print_ccli_number and item.song.ccli_id != nil %}#{{item.song.ccli_id}}
+                        {% endif %}{% if print_author and item.song.author != '' %}by {{item.song.author}}{% endif %}
+                    </div>
+                    <div class="copyright">{% if print_copyright %}{{item.song.copyright}}{% endif %}</div>
+                </div>
+                <div class="chord_chart_content">{{item.arrangement.lyrics}}</div>
             </div>
             {% endif %}
-            {% assign last_category = plan_person.category.id %}
-            <div><strong>{{ plan_person.position }}: </strong>{{ plan_person.person.name }}
-                {% if plan_person.status == 'U' %} <img
-                        src="https://www.planningcenteronline.com/assets/icon_plan_person_u.gif"/>{% endif %}
-            </div>
-            {% endfor %}
         </td>
 
-        <td valign="top">
-            <table id="plan">
-                <thead>
-                <tr>
-                    <th>TIME</th>
-                    <th>{{ plan.plan_title }}</th>
-                    <th align="right">LENGTH</th>
-                </tr>
-                </thead>
-                {% for item in plan.items %}
-                {% case item.item_type %}
-                {% when 'Header' %}
-                {% else %}
-                <tr>
-                    <td class="item">{{ item.offset }}</td>
-                    <td class="item"><strong>{{ item.title }}:</strong> {{ item.description }}</td>
-                    <td class="item" align="right">{% if item.length != "0:00" %}{{ item.length }}{% endif %}</td>
-                </tr>
-                {% endcase %}
-                {% endfor %}
-            </table>
-            <table class="times">
-                <thead>
-                <tr>
-                    <th colspan=4>SATURDAY REHEARSAL</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% assign even = 0 %}
-                <tr>
-                    {% for time in plan.rehearsal_times %}
-                    {{ time.starts_at | date: '%A' | assign_to: 'day_of_week' }}
-                    {% if day_of_week == 'Saturday' %}
-                    <th>{{ time.starts_at | date: '%I:%M' }}</th>
-                    <td>{{ time.name }}</td>
-                    {% if even == 1 %}
-                </tr>
-                <tr>
-                    {% assign even = 0 %}
-                    {% else %}
-                    {% assign even = 1 %}
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                </tr>
-                </tbody>
-            </table>
-            <table class="times">
-                <thead>
-                <tr>
-                    <th colspan=4>SUNDAY REHEARSAL</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% assign even = 0 %}
-                <tr>
-                    {% for time in plan.rehearsal_times %}
-                    {{ time.starts_at | date: '%A' | assign_to: 'day_of_week' }}
-                    {% if day_of_week == 'Sunday' %}
-                    <th>{{ time.starts_at | date: '%I:%M' }}</th>
-                    <td>{{ time.name }}</td>
-                    {% if even == 1 %}
-                </tr>
-                <tr>
-                    {% assign even = 0 %}
-                    {% else %}
-                    {% assign even = 1 %}
-                    {% endif %}
-                    {% endif %}
-                    {% endfor %}
-                </tr>
-                </tbody>
-            </table>
+        {% if notes_in_columns == true %}
+        {% for my_note in selected_item_notes %}
+        <td class="item">{% for note in item.notes %}
+            {% if note.category_name == my_note.name or note.category_name == my_note %}{{ note.note }}{% endif %}
+            {% endfor %}
         </td>
+        {% endfor %}
+        {% else %}
+        <td class="item">
+            {% for my_note in selected_item_notes %}
+            {% for note in item.notes %}
+            {% if note.category_name == my_note.name or note.category_name == my_note %}<strong>{{ note.category_name
+            }}:</strong>{{ note.note }}<br/>{% endif %}
+            {% endfor %}
+            {% endfor %}
+        </td>
+        {% endif %}
+
+        {% endcase %}
     </tr>
+    {% endfor %}
+    </tbody>
+    {% if print_plan_item_times == true or print_plan_item_length == true %}
+    <tfoot>
+    <tr>
+        {% if print_plan_item_times == true %}
+        {% for time in plan.plan_times %}
+        <th class="time">{{ time.ends_at | date: '%I:%M%p' | downcase }}</th>
+        {% endfor %}
+        {% endif %}
+
+        {% if print_plan_item_length == true %}
+        <th class="length">{{ plan.total_length }}</th>
+        {% endif %}
+
+        <th></th>
+
+        {% if notes_in_columns == true %}
+        {% for note_category in selected_item_notes %}
+        <th></th>
+        {% endfor %}
+        {% else %}
+        <th></th>
+        {% endif %}
+    </tr>
+    </tfoot>
+    {% endif %}
 </table>
+{% endif %}
+<!-- END PLAN TABLE -->
+
 </body>
 </html>

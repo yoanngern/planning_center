@@ -24,12 +24,25 @@ header {
 }
 
 section.top {
+    text-align: center;
+    margin-bottom: 20px;
+
     h1 {
         font-family: $font-bold;
+        font-size: 1.4em;
+        line-height: 1.6em;
     }
 
     h3 {
         color: $redGC;
 
     }
+}
+
+table.main {
+
+    th, td {
+        border: 1px solid $blackGC;
+    }
+
 }
