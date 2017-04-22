@@ -52,4 +52,12 @@ table.main {
         border: 1px solid $blackGC;
     }
 
+    tr.header td {
+        background-color: $grayGC;
+    }
+
+    tr.song {
+        color: blue;
+    }
+
 }

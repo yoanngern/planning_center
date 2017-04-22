@@ -77,3 +77,7 @@ table.main {
     font-family: "Radikal-Bold", "Radikal", sans-serif; }
   table.main th, table.main td {
     border: 1px solid #313131; }
+  table.main tr.header td {
+    background-color: #878787; }
+  table.main tr.song {
+    color: blue; }
