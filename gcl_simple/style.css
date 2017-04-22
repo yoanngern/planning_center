@@ -74,6 +74,9 @@ section.top {
   section.top h3 {
     color: #D91A15; }
 
+table {
+  font-size: 14px; }
+
 table.main {
   width: 100%; }
   table.main thead th {
