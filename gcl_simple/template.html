@@ -27,7 +27,7 @@
         <th>Horaires</th>
         <th>Durée</th>
         <th>Events</th>
-        <th>Qui</th>
+        <th>Description</th>
         <th>Média</th>
     </tr>
     </thead>
@@ -41,12 +41,11 @@
     </tr>
     {% else %}
     <tr class="{{item.item_type}}">
-        <td>{% for item_time in item.times %}{{item_time.actual_time | date: '%H:%M' | downcase}}{% endfor %}</td>
-        <td>{% if item.length != "0:00" %}{{ item.length }}{% endif %}</td>
-        <td>{{ item.title }}</td>
-        <td>{{ item.description }}</td>
+        <td class="time">{% for item_time in item.times %}{{item_time.actual_time | date: '%H:%M' | downcase}}{% endfor %}</td>
+        <td class="length">{% if item.length != "0:00" %}{{ item.length }}{% endif %}</td>
+        <td class="title">{{ item.title }}</td>
+        <td class="desc">{{ item.description }}</td>
         <td></td>
-
 
     </tr>
     {% endcase %}

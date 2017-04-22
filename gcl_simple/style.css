@@ -77,7 +77,9 @@ table.main {
     font-family: "Radikal-Bold", "Radikal", sans-serif; }
   table.main th, table.main td {
     border: 1px solid #313131;
-    padding: 2px 1px; }
+    padding: 5px 3px; }
+    table.main th.time, table.main td.time {
+      text-align: center; }
   table.main tr.header td {
     color: #878787;
     border: none; }

@@ -50,7 +50,11 @@ table.main {
 
     th, td {
         border: 1px solid $blackGC;
-        padding: 2px 1px;
+        padding: 5px 3px;
+
+        &.time {
+            text-align: center;
+        }
     }
 
     tr.header td {
