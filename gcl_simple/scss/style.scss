@@ -40,6 +40,13 @@ section.top {
 }
 
 table.main {
+    width: 100%;
+
+    thead {
+        th {
+            font-family: $font-bold;
+        }
+    }
 
     th, td {
         border: 1px solid $blackGC;

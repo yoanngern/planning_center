@@ -71,5 +71,9 @@ section.top {
   section.top h3 {
     color: #D91A15; }
 
-table.main th, table.main td {
-  border: 1px solid #313131; }
+table.main {
+  width: 100%; }
+  table.main thead th {
+    font-family: "Radikal-Bold", "Radikal", sans-serif; }
+  table.main th, table.main td {
+    border: 1px solid #313131; }
